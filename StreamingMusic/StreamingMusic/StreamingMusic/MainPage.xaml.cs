@@ -17,34 +17,15 @@ namespace StreamingMusic
             btn_play.IsVisible = true;
             btn_pause.IsVisible = false;
 
-
-            //var ex = Task.FromResult(InitMediaPlayer()).Result;
-
-            //var test = InitMediaPlayer().GetAwaiter().GetResult();
-
-            Task.Run(() => InitMediaPlayer()).Wait();
-
-            IsMediaPlayerFound = true;
-
-            //if (!test)
-            //{
-            //    ShowErrorMediaPlayer();
-            //}
-            //else
-            //{
-            //    IsMediaPlayerFound = true;
-            //}
-
-            //var result = task.;
-
-            //if (! Task.InitMediaPlayer())
-            //{
-            //    ShowErrorMediaPlayer();
-            //}
-            //else
-            //{
-            //    IsMediaPlayerFound = true;
-            //}
+            var result = Task.Run(InitMediaPlayer).Result;
+            if (!result)
+            {
+                ShowErrorMediaPlayer();
+            }
+            else
+            {
+                IsMediaPlayerFound = true;
+            }
         }
 
         protected MediaPlayer player;
@@ -72,8 +53,7 @@ namespace StreamingMusic
 
                 loading.IsVisible = false;
             }
-
-            if (IsMediaPlayerFound)
+            else
             {
                 if (!player.IsPlaying)
                 {
