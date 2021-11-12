@@ -45,7 +45,7 @@
             WidthRequest="75"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand"
-            TranslationY="196"
+            TranslationY="0"
             IsVisible="false"/>
     </StackLayout>
 

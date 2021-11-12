@@ -1,5 +1,8 @@
 ﻿using Android.Media;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace StreamingMusic
@@ -13,69 +16,90 @@ namespace StreamingMusic
             BindingContext = this;
             btn_play.IsVisible = true;
             btn_pause.IsVisible = false;
-            if (player == null)
-            {
-                player = new MediaPlayer();
-            }
+
+
+            //var ex = Task.FromResult(InitMediaPlayer()).Result;
+
+            //var test = InitMediaPlayer().GetAwaiter().GetResult();
+
+            Task.Run(() => InitMediaPlayer()).Wait();
+
+            IsMediaPlayerFound = true;
+
+            //if (!test)
+            //{
+            //    ShowErrorMediaPlayer();
+            //}
+            //else
+            //{
+            //    IsMediaPlayerFound = true;
+            //}
+
+            //var result = task.;
+
+            //if (! Task.InitMediaPlayer())
+            //{
+            //    ShowErrorMediaPlayer();
+            //}
+            //else
+            //{
+            //    IsMediaPlayerFound = true;
+            //}
         }
 
         protected MediaPlayer player;
-        public void StartPlayer(String filePath)
+        private bool IsMediaPlayerFound = false;
+
+        private void ShowErrorMediaPlayer()
         {
-            player.Reset();
-            player.SetDataSource(filePath);
-            player.Prepare();
-            player.Start();
+            DisplayAlert("Error", "Media Player Not Found \nPlease check your internet connection", "OK");
         }
 
-        private void PlayButton(object sender, EventArgs e)
+        private async void PlayButton(object sender, EventArgs e)
         {
-            //tampilkan loading bar
-            ShowLoadingBar(true);
-
-            if (PlayMusic())
-            {
-                ShowLoadingBar(false);
-            }
-            else
-            {
-                ShowLoadingBar(false);
-                //ShowErrorPlayMusic();
-            }
-        }
-
-        private bool ShowLoadingBar(bool showloadingbar)
-        {
-            if (showloadingbar == true)
+            if (!IsMediaPlayerFound)
             {
                 loading.IsVisible = true;
-                btn_play.IsVisible = false;
-                btn_pause.IsVisible = false;
-                return true;
-            }
-            else
-            {
+
+                if (!await InitMediaPlayer())
+                {
+                    ShowErrorMediaPlayer();
+                }
+                else
+                {
+                    IsMediaPlayerFound = true;
+                }
+
                 loading.IsVisible = false;
-                btn_pause.IsVisible = true;
-                return false;
+            }
+
+            if (IsMediaPlayerFound)
+            {
+                if (!player.IsPlaying)
+                {
+                    btn_play.IsVisible = false;
+                    btn_pause.IsVisible = true;
+                    player.Start();
+                }
             }
         }
 
-        private bool PlayMusic()
+        private async Task<bool> InitMediaPlayer()
         {
-            if (!player.IsPlaying)
+            try
             {
-                try
+                if (!IsMediaPlayerFound)
                 {
                     string path = "https://drive.google.com/uc?id=1Un3lFeU9G-pCiWuniD3T8FtmD2IpEXNT&export=download";
-                    StartPlayer(path);
-
+                    player = new MediaPlayer();
+                    player.Reset();
+                    await player.SetDataSourceAsync(path);
+                    player.Prepare();
                 }
-                catch (Exception)
-                {
-                    return false;
-                }
-
+            }
+            catch (Exception)
+            {
+                return false;
             }
 
             return true;
