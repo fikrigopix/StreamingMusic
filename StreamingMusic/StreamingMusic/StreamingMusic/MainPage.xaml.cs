@@ -53,7 +53,8 @@ namespace StreamingMusic
 
                 loading.IsVisible = false;
             }
-            else
+
+            if (IsMediaPlayerFound)
             {
                 if (!player.IsPlaying)
                 {
