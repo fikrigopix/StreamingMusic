@@ -4,7 +4,7 @@
 		<color android:color="@color/splash_background"/>
 	</item>
 	<item
-		android:height="1080dp"
+		android:height="960dp"
 		android:width="1080dp"
 		android:gravity="center">
 		<bitmap

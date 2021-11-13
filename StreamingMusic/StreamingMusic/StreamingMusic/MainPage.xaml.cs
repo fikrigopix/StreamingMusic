@@ -1,6 +1,5 @@
 ﻿using Android.Media;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -11,21 +10,7 @@ namespace StreamingMusic
     {
         public MainPage()
         {
-            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            BindingContext = this;
-            btn_play.IsVisible = true;
-            btn_pause.IsVisible = false;
-
-            var result = Task.Run(InitMediaPlayer).Result;
-            if (!result)
-            {
-                ShowErrorMediaPlayer();
-            }
-            else
-            {
-                IsMediaPlayerFound = true;
-            }
         }
 
         protected MediaPlayer player;
@@ -36,54 +21,66 @@ namespace StreamingMusic
             DisplayAlert("Error", "Media Player Not Found \nPlease check your internet connection", "OK");
         }
 
-        private async void PlayButton(object sender, EventArgs e)
+        private void PlayButton(object sender, EventArgs e)
         {
             if (!IsMediaPlayerFound)
             {
+                btn_play.IsVisible = false;
+                btn_pause.IsVisible = false;
                 loading.IsVisible = true;
+            }
+            // Start a new task (this launches a new thread)
+            Task.Factory.StartNew(() =>
+            {
+                // Do some work on a background thread, allowing the UI to remain responsive
+                InitMediaPlayer();
+                // When the background work is done, continue with this code block
+            }).ContinueWith(task =>
+            {
+                loading.IsVisible = false;
 
-                if (!await InitMediaPlayer())
+                if (IsMediaPlayerFound)
                 {
-                    ShowErrorMediaPlayer();
+                    if (!player.IsPlaying)
+                    {
+                        btn_play.IsVisible = false;
+                        btn_pause.IsVisible = true;
+                        player.Looping = true;
+                        player.Start();
+                    }
                 }
                 else
                 {
-                    IsMediaPlayerFound = true;
+                    ShowErrorMediaPlayer();
+                    btn_play.IsVisible = true;
+                    btn_pause.IsVisible = false;
                 }
-
-                loading.IsVisible = false;
-            }
-
-            if (IsMediaPlayerFound)
-            {
-                if (!player.IsPlaying)
-                {
-                    btn_play.IsVisible = false;
-                    btn_pause.IsVisible = true;
-                    player.Start();
-                }
-            }
+                // the following forces the code in the ContinueWith block to be run on the
+                // calling thread, often the Main/UI thread.
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
-
-        private async Task<bool> InitMediaPlayer()
+        private void InitMediaPlayer()
         {
             try
             {
                 if (!IsMediaPlayerFound)
                 {
                     string path = "https://drive.google.com/uc?id=1Un3lFeU9G-pCiWuniD3T8FtmD2IpEXNT&export=download";
+
+                    // For Testing Looping
+                    // string path = "https://drive.google.com/uc?id=1DG6JwEJ3s9rolWwKAV8j8qEoyNtJFJ0G&export=download";
+
                     player = new MediaPlayer();
                     player.Reset();
-                    await player.SetDataSourceAsync(path);
+                    player.SetDataSource(path);
                     player.Prepare();
+                    IsMediaPlayerFound = true;
                 }
             }
             catch (Exception)
             {
-                return false;
+                IsMediaPlayerFound = false;
             }
-
-            return true;
         }
 
         private void PauseButton(object sender, EventArgs e)
@@ -98,7 +95,39 @@ namespace StreamingMusic
 
         private async void AboutButton(object sender, EventArgs e)
         {
-            await DisplayAlert("Relax Music", "Version : 1.0.0\n© 2021 Kolam Kode", "OK");
+            var urlSourceImage = new Uri("https://unsplash.com/photos/gd3ysFyrsTQ");
+            var urlSourceMusic = new Uri("https://soundcloud.com/ashamaluevmusic2/sets/relaxing-music");
+
+            string[] Credits = {
+                "Relax Music",
+                "Version : 1.0.0\n© 2021 Kolam Kode",
+                $"Source Image:\n- Unsplash Cosmin Georgian\n- {urlSourceImage}",
+                $"Source Music :\n- AShamaluevMusic - Music For Videos\n- {urlSourceMusic}",
+                "Ok",
+            };
+
+            var result = await DisplayActionSheet(Credits[0], Credits[4], null, Credits[1], Credits[2], Credits[3]);
+
+            if (result == Credits[2])
+            {
+                await OpenBrowser(urlSourceImage);
+            }
+            else if (result == Credits[3])
+            {
+                await OpenBrowser(urlSourceMusic);
+            }
+        }
+
+        public async Task OpenBrowser(Uri uri)
+        {
+            try
+            {
+                await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("An unexpected error occured", "No browser may be installed on the device", "OK");
+            }
         }
 
         protected override bool OnBackButtonPressed()

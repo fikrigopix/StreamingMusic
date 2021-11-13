@@ -87,7 +87,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\StreamingMusic\StreamingMusic.csproj">
       <Project>{658D1183-C034-4845-AF97-20382D791321}</Project>

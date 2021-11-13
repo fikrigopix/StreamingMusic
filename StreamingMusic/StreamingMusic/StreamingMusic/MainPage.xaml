@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StreamingMusic.MainPage">
+             x:Class="StreamingMusic.MainPage"
+             NavigationPage.HasNavigationBar="False">
 
     <StackLayout Spacing="-75">
         <ImageButton
@@ -45,7 +46,7 @@
             WidthRequest="75"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand"
-            TranslationY="0"
+            TranslationY="196"
             IsVisible="false"/>
     </StackLayout>
 
