@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.OS;
 using AndroidX.Core.App;
 using StreamingMusic.Interfaces;
@@ -58,19 +57,22 @@ namespace StreamingMusic.Droid.Services
 
             notificationId++;
 
-            var pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent , PendingIntentFlags.OneShot);
+            // When the notification is clicked only open the app once
+            // var pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent , PendingIntentFlags.OneShot);
+
+            // Can always open the app when the notification is clicked
+            var pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, notificationId, intent , PendingIntentFlags.UpdateCurrent);
+
             var notificationBuilder = new NotificationCompat.Builder(AndroidApp.Context, CHANNEL_ID)
-                                            //.SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Mipmap.icon))
-                                            //.SetLargeIcon((Bitmap)Resource.Drawable.notif_nowplaying)
                                             .SetSmallIcon(Resource.Drawable.notif_nowplaying)
                                             .SetContentTitle(title)
                                             .SetContentText(message)
-                                            .SetAutoCancel(false)
                                             .SetContentIntent(pendingIntent)
-                                            //.SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
                                             .SetNotificationSilent()
+                                            .SetOngoing(true)
+                                            .SetCategory(Notification.CategoryStatus)
                                             .SetPriority((int)NotificationPriority.Max)
-                                            .SetOngoing(true);
+                                            .SetVisibility((int)NotificationVisibility.Public);
 
             var notificationManager = NotificationManagerCompat.From(AndroidApp.Context);
             notificationManager.Notify(notificationId, notificationBuilder.Build());
