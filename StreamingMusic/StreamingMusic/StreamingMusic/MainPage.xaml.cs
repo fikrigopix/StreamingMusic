@@ -1,8 +1,10 @@
 ﻿using Android.Media;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using StreamingMusic.Interfaces;
 
 namespace StreamingMusic
 {
@@ -11,10 +13,17 @@ namespace StreamingMusic
         public MainPage()
         {
             InitializeComponent();
+            localNotificationsService = DependencyService.Get<ILocalNotificationsService>();
         }
 
+        public readonly ILocalNotificationsService localNotificationsService;
         protected MediaPlayer player;
         private bool IsMediaPlayerFound = false;
+
+        private void ShowNotification()
+        {
+            localNotificationsService.ShowNotification("Relax Music", "Now Playing", new Dictionary<string, string>());
+        }
 
         private void ShowErrorMediaPlayer()
         {
@@ -47,6 +56,7 @@ namespace StreamingMusic
                         btn_pause.IsVisible = true;
                         player.Looping = true;
                         player.Start();
+                        ShowNotification();
                     }
                 }
                 else
@@ -90,6 +100,7 @@ namespace StreamingMusic
                 player.Pause();
                 btn_play.IsVisible = true;
                 btn_pause.IsVisible = false;
+                localNotificationsService.HideNotification();
             }
         }
 
