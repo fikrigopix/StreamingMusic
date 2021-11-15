@@ -83,6 +83,7 @@ namespace StreamingMusic
                     player.Reset();
                     player.SetDataSource(path);
                     player.Prepare();
+                    player.SeekTo(4500); // starting from the first 4.5 seconds
                     IsMediaPlayerFound = true;
                 }
             }
@@ -105,7 +106,7 @@ namespace StreamingMusic
 
         private async void AboutButton(object sender, EventArgs e)
         {
-            await DisplayAlert("Relax Guitar Music", "Source Image: Unsplash Cosmin Georgian\nSource Music: AShamaluevMusic - Music For Videos\n\nVersion : 1.0.0\n© 2021 Kolam Kode", "OK");
+            await DisplayAlert("Relax Guitar Music", "Source Image: BelleDeesse (WallpaperUP)\nSource Music: Whitesand (Youtube)\n\nVersion : 1.0.0\n© 2021 Kolam Kode", "OK");
         }
 
         protected override bool OnBackButtonPressed()
