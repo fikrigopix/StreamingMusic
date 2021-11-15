@@ -21,7 +21,7 @@ namespace StreamingMusic
 
         private void ShowNotification()
         {
-            localNotificationsService.ShowNotification("Relax Music", "Now Playing", new Dictionary<string, string>());
+            localNotificationsService.ShowNotification("Relax Guitar Music", "Now Playing", new Dictionary<string, string>());
         }
 
         private void ShowErrorMediaPlayer()
@@ -74,7 +74,7 @@ namespace StreamingMusic
             {
                 if (!IsMediaPlayerFound)
                 {
-                    string path = "https://drive.google.com/uc?id=1Un3lFeU9G-pCiWuniD3T8FtmD2IpEXNT&export=download";
+                    string path = "https://drive.google.com/uc?id=1uwtTPC_oSLyDbpEJyHpGlfbt_bOxmrOW&export=download";
 
                     // For Testing Looping
                     // string path = "https://drive.google.com/uc?id=1DG6JwEJ3s9rolWwKAV8j8qEoyNtJFJ0G&export=download";
@@ -105,7 +105,7 @@ namespace StreamingMusic
 
         private async void AboutButton(object sender, EventArgs e)
         {
-            await DisplayAlert("Relax Music", "Source Image: Unsplash Cosmin Georgian\nSource Music: AShamaluevMusic - Music For Videos\n\nVersion : 1.0.0\n© 2021 Kolam Kode", "OK");
+            await DisplayAlert("Relax Guitar Music", "Source Image: Unsplash Cosmin Georgian\nSource Music: AShamaluevMusic - Music For Videos\n\nVersion : 1.0.0\n© 2021 Kolam Kode", "OK");
         }
 
         protected override bool OnBackButtonPressed()
