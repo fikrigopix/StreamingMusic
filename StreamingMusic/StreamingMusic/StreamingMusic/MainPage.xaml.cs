@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using StreamingMusic.Interfaces;
 
@@ -106,39 +105,7 @@ namespace StreamingMusic
 
         private async void AboutButton(object sender, EventArgs e)
         {
-            var urlSourceImage = new Uri("https://unsplash.com/photos/gd3ysFyrsTQ");
-            var urlSourceMusic = new Uri("https://soundcloud.com/ashamaluevmusic2/sets/relaxing-music");
-
-            string[] Credits = {
-                "Relax Music",
-                "Version : 1.0.0\n© 2021 Kolam Kode",
-                $"Source Image:\n- Unsplash Cosmin Georgian\n- {urlSourceImage}",
-                $"Source Music :\n- AShamaluevMusic - Music For Videos\n- {urlSourceMusic}",
-                "Ok",
-            };
-
-            var result = await DisplayActionSheet(Credits[0], Credits[4], null, Credits[1], Credits[2], Credits[3]);
-
-            if (result == Credits[2])
-            {
-                await OpenBrowser(urlSourceImage);
-            }
-            else if (result == Credits[3])
-            {
-                await OpenBrowser(urlSourceMusic);
-            }
-        }
-
-        public async Task OpenBrowser(Uri uri)
-        {
-            try
-            {
-                await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
-            }
-            catch (Exception)
-            {
-                await DisplayAlert("An unexpected error occured", "No browser may be installed on the device", "OK");
-            }
+            await DisplayAlert("Relax Music", "Source Image: Unsplash Cosmin Georgian\nSource Music: AShamaluevMusic - Music For Videos\n\nVersion : 1.0.0\n© 2021 Kolam Kode", "OK");
         }
 
         protected override bool OnBackButtonPressed()
