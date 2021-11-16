@@ -4,11 +4,11 @@ namespace StreamingMusic
 {
     public partial class App : Application
     {
-        public App()
+        public App(string app_label)
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new MainPage(app_label);
         }
 
         protected override void OnStart()

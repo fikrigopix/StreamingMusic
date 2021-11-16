@@ -14,8 +14,8 @@ namespace StreamingMusic.Droid.Services
     {
 
         private const string CHANNEL_ID = "local_notifications_channel";
-        private const string CHANNEL_NAME = "Relax Music";
-        private const string CHANNEL_DESCRIPTION = "Now Playing";
+        private const string CHANNEL_NAME = "Now Playing";
+        //private const string CHANNEL_DESCRIPTION = "Now Playing";
 
         private int notificationId = -1;
         private const string TITLE_KEY = "title";
@@ -32,7 +32,7 @@ namespace StreamingMusic.Droid.Services
 
             var channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationImportance.Default)
             {
-                Description = CHANNEL_DESCRIPTION
+                //Description = CHANNEL_DESCRIPTION
             };
 
             var notificationManager = (NotificationManager) AndroidApp.Context.GetSystemService(AndroidApp.NotificationService);

@@ -4,16 +4,23 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using StreamingMusic.Interfaces;
+using Xamarin.Essentials;
 
 namespace StreamingMusic
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(string app_label)
         {
             InitializeComponent();
             localNotificationsService = DependencyService.Get<ILocalNotificationsService>();
+            app_name = app_label;
         }
+
+        // Aplication Name
+        string app_name;
+        // Current app version
+        string currentVersion = VersionTracking.CurrentVersion;
 
         public readonly ILocalNotificationsService localNotificationsService;
         protected MediaPlayer player;
@@ -21,7 +28,7 @@ namespace StreamingMusic
 
         private void ShowNotification()
         {
-            localNotificationsService.ShowNotification("Relax Guitar Music", "Now Playing", new Dictionary<string, string>());
+            localNotificationsService.ShowNotification($"{app_name}", "Now Playing", new Dictionary<string, string>());
         }
 
         private void ShowErrorMediaPlayer()
@@ -106,7 +113,7 @@ namespace StreamingMusic
 
         private async void AboutButton(object sender, EventArgs e)
         {
-            await DisplayAlert("Relax Guitar Music", "Source Image: BelleDeesse (WallpaperUP)\nSource Music: Whitesand (Youtube)\n\nVersion : 1.0.0\n© 2021 Kolam Kode", "OK");
+            await DisplayAlert($"{app_name}", $"Source Image: BelleDeesse (WallpaperUP)\nSource Music: Whitesand (Youtube)\n\nVersion : {currentVersion}\n© 2021 Kolam Kode", "OK");
         }
 
         protected override bool OnBackButtonPressed()
