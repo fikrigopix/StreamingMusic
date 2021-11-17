@@ -128,5 +128,10 @@ namespace StreamingMusic
             });
             return true;
         }
+
+        private void ads_banner_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
+        }
     }
 }

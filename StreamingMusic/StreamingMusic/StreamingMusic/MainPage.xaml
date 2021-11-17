@@ -1,10 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StreamingMusic.CustomRenders"
              x:Class="StreamingMusic.MainPage"
              NavigationPage.HasNavigationBar="False">
 
-    <StackLayout Spacing="-75">
+    <RelativeLayout>
+        
+        <local:AdBanner
+            x:Name="ads_banner"
+            Size="Standardbanner"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=0}"/>
+        
         <ImageButton
             x:Name="btn_play"
             Source="btn_play.png"
@@ -14,8 +30,15 @@
             Clicked="PlayButton"
             IsVisible="true"
             HorizontalOptions="Center"
-            TranslationX="0"
-            TranslationY="550"/>
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=300}"/>
 
         <ImageButton
             x:Name="btn_pause"
@@ -26,8 +49,16 @@
             Clicked="PauseButton"
             IsVisible="false"
             HorizontalOptions="Center"
-            TranslationX="0"
-            TranslationY="550"/>
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=300}"/>
+
         <ImageButton
             x:Name="btn_about"
             Source="btn_about.png"
@@ -36,18 +67,33 @@
             HeightRequest="45"
             Clicked="AboutButton"
             IsVisible="true"
-            HorizontalOptions="Center"
-            TranslationX="160"
-            TranslationY="10"/>
+            HorizontalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=-20}"
+            RelativeLayout.YConstraint="{ConstraintExpression
+                                     Type=RelativeToParent,
+                                     Property=Y,
+                                     Constant=10}"/>
+
         <Image
             x:Name="loading"
             Source="gif_loading.gif"
             IsAnimationPlaying="True"
             WidthRequest="75"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            TranslationY="196"
-            IsVisible="false"/>
-    </StackLayout>
+            IsVisible="false"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=300}"/>
 
+    </RelativeLayout>
+    
 </ContentPage>
