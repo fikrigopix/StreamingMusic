@@ -77,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdBanner_Droid.cs" />
+    <Compile Include="AdInterstitial_Droid.cs" />
+    <Compile Include="InterstitialCallback.cs" />
+    <Compile Include="InterstitialCallbackinherit.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

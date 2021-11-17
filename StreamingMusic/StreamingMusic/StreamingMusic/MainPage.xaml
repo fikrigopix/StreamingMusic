@@ -94,6 +94,61 @@
                                     Property=Height,
                                     Constant=300}"/>
 
+        <Button
+            x:Name="btn_ads_interstitial"
+            Clicked="InterstitialButton"
+            Text="Show Ads Interstitial"
+            WidthRequest="230"
+            HeightRequest="50"
+            IsVisible="false"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-200}">
+        </Button>
+
+        <Button
+            x:Name="btn_ads_interstitialvideo"
+            Clicked="InterstitialVideoButton"
+            Text="Show Ads Interstitial Video"
+            WidthRequest="230"
+            HeightRequest="50"
+            IsVisible="false"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-100}">
+        </Button>
+
+        <Button
+            x:Name="btn_next"
+            Clicked="NextButton"
+            Text="Next"
+            IsVisible="true"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=220}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=300}">
+        </Button>
+
     </RelativeLayout>
     
 </ContentPage>

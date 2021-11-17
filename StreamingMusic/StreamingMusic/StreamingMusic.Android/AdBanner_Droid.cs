@@ -38,9 +38,9 @@ namespace StreamingMusic.Droid.CustomRenders
                     case AdBanner.Sizes.Leaderboard:
                         adView.AdSize = AdSize.Leaderboard;
                         break;
-                    case AdBanner.Sizes.SmartBannerPortrait:
-                        adView.AdSize = AdSize.SmartBanner;
-                        break;
+                    //case AdBanner.Sizes.SmartBannerPortrait:
+                    //    adView.AdSize = AdSize.SmartBanner;
+                    //    break;
                     default:
                         adView.AdSize = AdSize.Banner;
                         break;

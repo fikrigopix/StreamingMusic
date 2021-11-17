@@ -2,6 +2,8 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Android.Gms.Ads;
+using Android.Gms.Ads.Interstitial;
 
 namespace StreamingMusic.Droid
 {
@@ -9,6 +11,7 @@ namespace StreamingMusic.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public string app_label { get; set; }
+        public static MainActivity instance;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

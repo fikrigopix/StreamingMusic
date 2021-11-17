@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using StreamingMusic.DependencyServices;
+using Xamarin.Forms;
 
 namespace StreamingMusic
 {
@@ -21,6 +22,7 @@ namespace StreamingMusic
 
         protected override void OnResume()
         {
+            //DependencyService.Get<IAdInterstitial>().ShowAdVideoAppOpen();
         }
     }
 }
