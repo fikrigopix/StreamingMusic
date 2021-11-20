@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:StreamingMusic.CustomRenders"
+             xmlns:local="clr-namespace:StreamingMusic.Interfaces"
              x:Class="StreamingMusic.MainPage"
              NavigationPage.HasNavigationBar="False">
 
     <RelativeLayout>
-        
-        <local:AdBanner
+
+        <local:IAdBannerService
             x:Name="ads_banner"
             Size="Standardbanner"
             HorizontalOptions="Center"
@@ -20,44 +20,6 @@
                                     Type=RelativeToParent,
                                     Property=Height,
                                     Constant=0}"/>
-        
-        <ImageButton
-            x:Name="btn_play"
-            Source="btn_play.png"
-            BackgroundColor="Transparent"
-            WidthRequest="75"
-            HeightRequest="75"
-            Clicked="PlayButton"
-            IsVisible="true"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            RelativeLayout.WidthConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent,
-                                    Property=Width,
-                                    Constant=0}"
-            RelativeLayout.HeightConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent,
-                                    Property=Height,
-                                    Constant=300}"/>
-
-        <ImageButton
-            x:Name="btn_pause"
-            Source="btn_pause.png"
-            BackgroundColor="Transparent"
-            WidthRequest="75"
-            HeightRequest="75"
-            Clicked="PauseButton"
-            IsVisible="false"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            RelativeLayout.WidthConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent,
-                                    Property=Width,
-                                    Constant=0}"
-            RelativeLayout.HeightConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent,
-                                    Property=Height,
-                                    Constant=300}"/>
 
         <ImageButton
             x:Name="btn_about"
@@ -84,6 +46,102 @@
             WidthRequest="75"
             IsVisible="false"
             HorizontalOptions="Center"
+            VerticalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-200}"/>
+
+        <ImageButton
+            x:Name="btn_play"
+            Source="btn_play.png"
+            BackgroundColor="Transparent"
+            WidthRequest="75"
+            HeightRequest="75"
+            Clicked="PlayButton"
+            IsVisible="true"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-200}"/>
+
+        <ImageButton
+            x:Name="btn_pause"
+            Source="btn_pause.png"
+            BackgroundColor="Transparent"
+            WidthRequest="75"
+            HeightRequest="75"
+            Clicked="PauseButton"
+            IsVisible="false"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-200}"/>
+
+        <ImageButton
+            x:Name="btn_next"
+            Source="btn_next.png"
+            BackgroundColor="Transparent"
+            WidthRequest="75"
+            HeightRequest="75"
+            Clicked="NextButton"
+            IsVisible="true"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=220}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-200}">
+        </ImageButton>
+
+        <ImageButton
+            x:Name="btn_previous"
+            Source="btn_previous.png"
+            BackgroundColor="Transparent"
+            WidthRequest="75"
+            HeightRequest="75"
+            Clicked="PreviousButton"
+            IsVisible="true"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=-220}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Constant=-200}">
+        </ImageButton>
+
+        <Label
+            x:Name="label_title"
+            BackgroundColor="LightGray"
+            Text="Title"
+            FontSize="20"
+            HorizontalTextAlignment="Center"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="Center"
             VerticalOptions="Center"
             RelativeLayout.WidthConstraint="{ConstraintExpression 
                                     Type=RelativeToParent,
@@ -92,15 +150,17 @@
             RelativeLayout.HeightConstraint="{ConstraintExpression 
                                     Type=RelativeToParent,
                                     Property=Height,
-                                    Constant=300}"/>
+                                    Constant=0}">
+            
+        </Label>
 
         <Button
             x:Name="btn_ads_interstitial"
-            Clicked="InterstitialButton"
+            Clicked="ShowAdsInterstitialButton"
             Text="Show Ads Interstitial"
             WidthRequest="230"
             HeightRequest="50"
-            IsVisible="false"
+            IsVisible="true"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             RelativeLayout.WidthConstraint="{ConstraintExpression 
@@ -114,12 +174,12 @@
         </Button>
 
         <Button
-            x:Name="btn_ads_interstitialvideo"
-            Clicked="InterstitialVideoButton"
-            Text="Show Ads Interstitial Video"
+            x:Name="btn_ads_openapp"
+            Clicked="ShowAdsOpenAppButton"
+            Text="Show Ads Open App"
             WidthRequest="230"
             HeightRequest="50"
-            IsVisible="false"
+            IsVisible="true"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             RelativeLayout.WidthConstraint="{ConstraintExpression 
@@ -131,24 +191,6 @@
                                     Property=Height,
                                     Constant=-100}">
         </Button>
-
-        <Button
-            x:Name="btn_next"
-            Clicked="NextButton"
-            Text="Next"
-            IsVisible="true"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            RelativeLayout.WidthConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent,
-                                    Property=Width,
-                                    Constant=220}"
-            RelativeLayout.HeightConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent,
-                                    Property=Height,
-                                    Constant=300}">
-        </Button>
-
     </RelativeLayout>
     
 </ContentPage>

@@ -39,6 +39,7 @@ namespace StreamingMusic.Droid.Services
             notificationManager.CreateNotificationChannel(channel);
         }
 
+        [System.Obsolete]
         public void ShowNotification(string title, string message, IDictionary<string, string> data)
         {
             if (!isChannelInitialized)

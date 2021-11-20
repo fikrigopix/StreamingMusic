@@ -1,13 +1,12 @@
-﻿using StreamingMusic.DependencyServices;
-using StreamingMusic.Droid.DependencyServices;
+﻿using Xamarin.Forms;
+using StreamingMusic.Interfaces;
 using Android.Gms.Ads;
-using Xamarin.Forms;
 using Android.Gms.Ads.Interstitial;
 
-[assembly: Dependency(typeof(AdInterstitial_Droid))]
-namespace StreamingMusic.Droid.DependencyServices
+[assembly: Dependency(typeof(StreamingMusic.Droid.Services.AdInterstitialService))]
+namespace StreamingMusic.Droid.Services
 {
-    public class AdInterstitial_Droid : IAdInterstitial
+    public class AdInterstitialService : IAdInterstitialService
     {
         public void ShowAd()
         {
@@ -20,18 +19,7 @@ namespace StreamingMusic.Droid.DependencyServices
             InterstitialAd.Load(Android.App.Application.Context, AdUnitId, new AdRequest.Builder().Build(), new InterstitialCallbackinherit());
         }
 
-        public void ShowAdVideo()
-        {
-            // Admob Test AdunitID Interstitial Video
-            string AdUnitId = "ca-app-pub-3940256099942544/8691691433";
-
-            // Admob Real AdunitID Interstitial Video
-            // string AdUnitId = "ca-app-pub-3940256099942544/8691691433";
-
-            InterstitialAd.Load(Android.App.Application.Context, AdUnitId, new AdRequest.Builder().Build(), new InterstitialCallbackinherit());
-        }
-
-        public void ShowAdVideoAppOpen()
+        public void ShowAdAppOpen()
         {
             // Admob Test AdunitID Interstitial Video
             string AdUnitId = "ca-app-pub-3940256099942544/3419835294";

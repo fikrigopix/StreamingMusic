@@ -1,19 +1,20 @@
-﻿using StreamingMusic.DependencyServices;
+﻿using StreamingMusic.Interfaces;
 using Xamarin.Forms;
 
 namespace StreamingMusic
 {
     public partial class App : Application
     {
-        public App(string app_label)
+        public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage(app_label);
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
+            DependencyService.Get<IMediaPlayerService>().InitMediaPlayer();
         }
 
         protected override void OnSleep()

@@ -23,7 +23,7 @@ namespace StreamingMusic.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App("Relaxing Guitar Music"));
 
             return base.FinishedLaunching(app, options);
         }

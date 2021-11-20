@@ -1,18 +1,16 @@
-﻿using Android.Media;
+﻿using Android.Gms.Ads.Interstitial;
 using Android.Runtime;
 using System;
 
-public abstract class InterstitialCallback : Android.Gms.Ads.Interstitial.InterstitialAdLoadCallback
+public abstract class InterstitialCallback : InterstitialAdLoadCallback
 {
     [Register("onAdLoaded", "(Lcom/google/android/gms/ads/interstitial/InterstitialAd;)V", "GetOnAdLoadedHandler")]
 
-    //StreamingMusic.MainPage mainpage = new StreamingMusic.MainPage("test");
-
-    public virtual void OnAdLoaded(Android.Gms.Ads.Interstitial.InterstitialAd interstitialAd)
+    public virtual void OnAdLoaded(InterstitialAd interstitialAd)
     {
-        //mainpage.PauseWhenShowAds();
-
+        //Code run when Ads Loaded
     }
+
     private static Delegate cb_onAdLoaded;
 
     private static Delegate GetOnAdLoadedHandler()
@@ -24,7 +22,7 @@ public abstract class InterstitialCallback : Android.Gms.Ads.Interstitial.Inters
     private static void n_onAdLoaded(IntPtr jnienv, IntPtr native__this, IntPtr native_p0)
     {
         InterstitialCallback thisobject = GetObject<InterstitialCallback>(jnienv, native__this, JniHandleOwnership.DoNotTransfer);
-        Android.Gms.Ads.Interstitial.InterstitialAd resultobject = GetObject<Android.Gms.Ads.Interstitial.InterstitialAd>(native_p0, JniHandleOwnership.DoNotTransfer);
+        InterstitialAd resultobject = GetObject<InterstitialAd>(native_p0, JniHandleOwnership.DoNotTransfer);
         thisobject.OnAdLoaded(resultobject);
     }
 }

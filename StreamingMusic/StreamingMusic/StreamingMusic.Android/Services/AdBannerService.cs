@@ -1,17 +1,16 @@
-﻿using Android.Gms.Ads;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using StreamingMusic.CustomRenders;
-using StreamingMusic.Droid.CustomRenders;
+using Android.Gms.Ads;
 using Android.Content;
+using StreamingMusic.Interfaces;
 
-[assembly: ExportRenderer(typeof(AdBanner), typeof(AdBanner_Droid))]
-namespace StreamingMusic.Droid.CustomRenders
+[assembly: ExportRenderer(typeof(IAdBannerService), typeof(StreamingMusic.Droid.Services.AdBannerService))]
+namespace StreamingMusic.Droid.Services
 {
-    public class AdBanner_Droid : ViewRenderer
+    public class AdBannerService : ViewRenderer
     {
         Context context;
-        public AdBanner_Droid(Context _context) : base(_context)
+        public AdBannerService(Context _context) : base(_context)
         {
             context = _context;
         }
@@ -21,21 +20,21 @@ namespace StreamingMusic.Droid.CustomRenders
             if (e.OldElement == null)
             {
                 var adView = new AdView(Context);
-                switch ((Element as AdBanner).Size)
+                switch ((Element as IAdBannerService).Size)
                 {
-                    case AdBanner.Sizes.Standardbanner:
+                    case IAdBannerService.Sizes.Standardbanner:
                         adView.AdSize = AdSize.Banner;
                         break;
-                    case AdBanner.Sizes.LargeBanner:
+                    case IAdBannerService.Sizes.LargeBanner:
                         adView.AdSize = AdSize.LargeBanner;
                         break;
-                    case AdBanner.Sizes.MediumRectangle:
+                    case IAdBannerService.Sizes.MediumRectangle:
                         adView.AdSize = AdSize.MediumRectangle;
                         break;
-                    case AdBanner.Sizes.FullBanner:
+                    case IAdBannerService.Sizes.FullBanner:
                         adView.AdSize = AdSize.FullBanner;
                         break;
-                    case AdBanner.Sizes.Leaderboard:
+                    case IAdBannerService.Sizes.Leaderboard:
                         adView.AdSize = AdSize.Leaderboard;
                         break;
                     //case AdBanner.Sizes.SmartBannerPortrait:
