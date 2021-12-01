@@ -136,7 +136,8 @@
 
         <Label
             x:Name="label_title"
-            BackgroundColor="LightGray"
+            BackgroundColor="Transparent"
+            TextColor="White"
             Text="Title"
             FontSize="20"
             HorizontalTextAlignment="Center"
@@ -160,7 +161,7 @@
             Text="Show Ads Interstitial"
             WidthRequest="230"
             HeightRequest="50"
-            IsVisible="true"
+            IsVisible="false"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             RelativeLayout.WidthConstraint="{ConstraintExpression 
@@ -179,7 +180,7 @@
             Text="Show Ads Open App"
             WidthRequest="230"
             HeightRequest="50"
-            IsVisible="true"
+            IsVisible="false"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             RelativeLayout.WidthConstraint="{ConstraintExpression 

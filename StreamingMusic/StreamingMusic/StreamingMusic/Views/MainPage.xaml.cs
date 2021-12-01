@@ -11,7 +11,7 @@ namespace StreamingMusic
         public MainPage()
         {
             InitializeComponent();
-            label_title.Text = "Anjay";
+            label_title.Text = titleSongs[0];
             current_path = path[0];
         }
 
@@ -21,9 +21,15 @@ namespace StreamingMusic
         readonly string currentVersion = VersionTracking.CurrentVersion;
 
         private bool DataSourceEmpty = true;
-        public int next_count = 0;
+        public int next_previous_count = 0;
         public int current_number_songs = 0;
         public string current_path;
+
+        // Title Songs
+        public string[] titleSongs = {
+                        "Lagu 1",
+                        "Lagu 2",
+                        "Lagu 3"};
 
         // Stream Songs Link
         public string[] path = {
@@ -38,6 +44,19 @@ namespace StreamingMusic
         private void ShowAdsAppOpen()
         {
             DependencyService.Get<IAdInterstitialService>().ShowAdAppOpen();
+        }
+
+        private void ShowAdsInterstitialWhen3Clicked()
+        {
+            if (next_previous_count == 2)
+            {
+                ShowAdsInterstitial();
+                next_previous_count = 0;
+            }
+            else
+            {
+                next_previous_count++;
+            }
         }
 
         private void ShowLoading(bool showloading)
@@ -141,7 +160,9 @@ namespace StreamingMusic
                 MediaPlayerService.Reset();
                 DataSourceEmpty = true;
             }
-            
+
+            ShowAdsInterstitialWhen3Clicked();
+
             if (current_number_songs == 2)
             {
                 current_number_songs = 0;
@@ -151,23 +172,33 @@ namespace StreamingMusic
                 current_number_songs++;
             }
 
-            if (next_count == 2)
-            {
-                ShowAdsInterstitial();
-                next_count = 0;
-            }
-            else
-            {
-                next_count++;
-            }
-
+            label_title.Text = titleSongs[current_number_songs];
             current_path = path[current_number_songs];
             Play(current_path);
         }
 
         public void Previous()
         {
+            if (!DataSourceEmpty)
+            {
+                MediaPlayerService.Reset();
+                DataSourceEmpty = true;
+            }
 
+            ShowAdsInterstitialWhen3Clicked();
+
+            if (current_number_songs == 0)
+            {
+                current_number_songs = 2;
+            }
+            else
+            {
+                current_number_songs -= 1;
+            }
+
+            label_title.Text = titleSongs[current_number_songs];
+            current_path = path[current_number_songs];
+            Play(current_path);
         }
 
         private void PlayButton(object sender, EventArgs e)
