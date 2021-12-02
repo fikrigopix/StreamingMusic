@@ -14,25 +14,22 @@ namespace StreamingMusic
 
         //protected override void OnStart()
         //{
-        //    DependencyService.Get<IMediaPlayerService>().InitMediaPlayer();
+
         //}
 
         protected async override void OnStart()
         {
-            base.OnStart();
+            // Initialize MediaPlayerService
             DependencyService.Get<IMediaPlayerService>().InitMediaPlayer();
 
-            // data string
-            var nama = "first string on mydatabase";
+            // test data string
+            //var nama = "first string on mydatabase";
 
             // Insert Data
-            await DependencyService.Get<IDatabaseService>().Add(nama);
+            //await DependencyService.Get<IDatabaseService>().Add(nama);
 
             // Get Data
-            var mydata = await DependencyService.Get<IDatabaseService>().GetData();
-
-            // Debug
-            //var result = 0;
+            //var mydata = await DependencyService.Get<IDatabaseService>().GetData();
         }
 
         protected override void OnSleep()
@@ -41,6 +38,7 @@ namespace StreamingMusic
 
         protected override void OnResume()
         {
+            //Show OpenApp Ads
             DependencyService.Get<IAdInterstitialService>().ShowAdAppOpen();
         }
     }

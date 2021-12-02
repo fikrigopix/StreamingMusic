@@ -151,7 +151,7 @@
             RelativeLayout.HeightConstraint="{ConstraintExpression 
                                     Type=RelativeToParent,
                                     Property=Height,
-                                    Constant=0}">
+                                    Constant=-450}">
             
         </Label>
 

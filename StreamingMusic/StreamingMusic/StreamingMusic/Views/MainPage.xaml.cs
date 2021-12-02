@@ -27,9 +27,9 @@ namespace StreamingMusic
 
         // Title Songs
         public string[] titleSongs = {
-                        "Lagu 1",
-                        "Lagu 2",
-                        "Lagu 3"};
+                        "1. Whitesand - Dance of Strings",
+                        "2. Solo Accoustic Guitar - Jason Shaw",
+                        "3. Wonderful Acoustic Guitar"};
 
         // Stream Songs Link
         public string[] path = {
