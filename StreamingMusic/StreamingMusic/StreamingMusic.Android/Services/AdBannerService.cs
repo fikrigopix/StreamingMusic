@@ -45,7 +45,7 @@ namespace StreamingMusic.Droid.Services
                         break;
                 }
                 // TODO: change this id to your admob id  
-                adView.AdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Id Test Banner
+                adView.AdUnitId = "ca-app-pub-3940256099942544/6300978111";
                 var requestbuilder = new AdRequest.Builder();
                 adView.LoadAd(requestbuilder.Build());
                 SetNativeControl(adView);

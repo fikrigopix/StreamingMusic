@@ -87,6 +87,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\LimitationInterstitialAds.cs" />
     <Compile Include="Services\LocalNotificationsService.cs" />
     <Compile Include="Services\MediaPlayerService.cs" />
   </ItemGroup>

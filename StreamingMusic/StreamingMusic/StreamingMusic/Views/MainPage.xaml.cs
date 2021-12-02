@@ -25,6 +25,7 @@ namespace StreamingMusic
         public int current_number_songs = 0;
         public string current_path;
 
+        
         // Title Songs
         public string[] titleSongs = {
                         "1. Whitesand - Dance of Strings",
@@ -39,7 +40,13 @@ namespace StreamingMusic
 
         private void ShowAdsInterstitial()
         {
-            DependencyService.Get<IAdInterstitialService>().ShowAd();
+            int GetcountNpClick = DependencyService.Get<ILimitationInterstitialAds>().GetcountNpClick();
+            int limitInterstitialAds = DependencyService.Get<ILimitationInterstitialAds>().GetlimitInterstitialAds();
+            if (GetcountNpClick < limitInterstitialAds)
+            {
+                DependencyService.Get<IAdInterstitialService>().ShowAd();
+                DependencyService.Get<ILimitationInterstitialAds>().SetcountNpClick();
+            }
         }
         private void ShowAdsAppOpen()
         {

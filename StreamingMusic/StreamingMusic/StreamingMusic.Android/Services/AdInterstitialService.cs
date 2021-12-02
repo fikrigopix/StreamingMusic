@@ -10,22 +10,16 @@ namespace StreamingMusic.Droid.Services
     {
         public void ShowAd()
         {
-            // Admob Test AdunitID Interstitial
+            // Admob AdunitID Interstitial
             string AdUnitId = "ca-app-pub-3940256099942544/1033173712";
-
-            // Admob Real AdunitID Interstitial
-            // string AdUnitId = "ca-app-pub-3940256099942544/1033173712";
 
             InterstitialAd.Load(Android.App.Application.Context, AdUnitId, new AdRequest.Builder().Build(), new InterstitialCallbackinherit());
         }
 
         public void ShowAdAppOpen()
         {
-            // Admob Test AdunitID Interstitial Video
+            // Admob AdunitID OpenApp
             string AdUnitId = "ca-app-pub-3940256099942544/3419835294";
-
-            // Admob Real AdunitID Interstitial Video
-            // string AdUnitId = "ca-app-pub-3940256099942544/3419835294";
 
             InterstitialAd.Load(Android.App.Application.Context, AdUnitId, new AdRequest.Builder().Build(), new InterstitialCallbackinherit());
         }

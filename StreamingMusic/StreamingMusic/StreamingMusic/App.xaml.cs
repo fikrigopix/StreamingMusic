@@ -1,4 +1,9 @@
 ﻿using StreamingMusic.Interfaces;
+using StreamingMusic.Models;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace StreamingMusic
@@ -12,24 +17,42 @@ namespace StreamingMusic
             MainPage = new MainPage();
         }
 
+        //protected async override void OnStart()
         //protected override void OnStart()
         //{
 
         //}
 
+        public DateTime LatestOpenAppAds;
+
         protected async override void OnStart()
         {
+            // Set LatestOpenAppAds Now
+            LatestOpenAppAds = DateTime.Now;
+
             // Initialize MediaPlayerService
             DependencyService.Get<IMediaPlayerService>().InitMediaPlayer();
 
-            // test data string
-            //var nama = "first string on mydatabase";
+            var CheckMyData = await DependencyService.Get<IDatabaseService>().GetData(1);
 
-            // Insert Data
-            //await DependencyService.Get<IDatabaseService>().Add(nama);
+            // If Database Null
+            if (await DependencyService.Get<IDatabaseService>().GetData(1) == null)
+            {
+                await DependencyService.Get<ILimitationInterstitialAds>().ResetLatestOpenAppAsync();
+            }
+            else
+            {
+                // If latestOpenApp Difference from now
+                var LatestOpenApp = await DependencyService.Get<IDatabaseService>().GetData(1);
+                DateTime latestOpenApp = LatestOpenApp.latestOpenApp;
 
-            // Get Data
-            //var mydata = await DependencyService.Get<IDatabaseService>().GetData();
+                TimeSpan DiffereceDate = DateTime.Now.Subtract(latestOpenApp);
+
+                if (DiffereceDate.Days >= 1)
+                {
+                    await DependencyService.Get<ILimitationInterstitialAds>().ResetLatestOpenAppAsync();
+                }
+            }
         }
 
         protected override void OnSleep()
@@ -38,8 +61,13 @@ namespace StreamingMusic
 
         protected override void OnResume()
         {
-            //Show OpenApp Ads
-            DependencyService.Get<IAdInterstitialService>().ShowAdAppOpen();
+            TimeSpan DiffereceTime = DateTime.Now.Subtract(LatestOpenAppAds);
+
+            if (DiffereceTime.Hours >= 1)
+            {
+                //Show OpenApp Ads
+                DependencyService.Get<IAdInterstitialService>().ShowAdAppOpen();
+            }
         }
     }
 }

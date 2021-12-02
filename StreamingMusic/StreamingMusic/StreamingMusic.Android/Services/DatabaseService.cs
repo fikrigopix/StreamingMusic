@@ -23,7 +23,7 @@ namespace StreamingMusic.Droid.Services
     public class DatabaseService : IDatabaseService
     {
         SQLiteAsyncConnection db;
-        async Task Init()
+        public async Task Init()
         {
             if (db != null)
                 return;
@@ -33,15 +33,15 @@ namespace StreamingMusic.Droid.Services
 
             db = new SQLiteAsyncConnection(databasePath);
 
-            await db.CreateTableAsync<MyData>();
+            await db.CreateTableAsync<Table1>();
         }
 
-        public async Task Add(string name)
+        public async Task Add(DateTime latestOpenApp)
        {
             await Init();
-            var MyData = new MyData
+            var MyData = new Table1
             {
-                Name = name,
+                latestOpenApp = latestOpenApp,
             };
 
             var id = await db.InsertAsync(MyData);
@@ -52,25 +52,25 @@ namespace StreamingMusic.Droid.Services
 
             await Init();
 
-            await db.DeleteAsync<MyData>(id);
+            await db.DeleteAsync<Table1>(id);
         }
 
-        public async Task<IEnumerable<MyData>> GetData()
+        public async Task<IEnumerable<Table1>> GetData()
         {
             await Init();
 
-            var mydata = await db.Table<MyData>().ToListAsync();
+            var mydata = await db.Table<Table1>().ToListAsync();
             return mydata.ToList();
         }
 
-        public async Task<MyData> GetData(int id)
+        public async Task<Table1> GetData(int id)
         {
             await Init();
 
-            var coffee = await db.Table<MyData>()
+            var mydata = await db.Table<Table1>()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            return coffee;
+            return mydata;
         }
 
     }
