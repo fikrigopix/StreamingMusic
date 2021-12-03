@@ -17,7 +17,7 @@ namespace StreamingMusic.Droid.Services
 {
     public class LimitationInterstitialAds : ILimitationInterstitialAds
     {
-        public int limitInterstitialAds = 3;
+        public int limitInterstitialAds = 50;
         public int countNpClick = 0;
         DateTime latestOpenApp;
 
@@ -29,7 +29,7 @@ namespace StreamingMusic.Droid.Services
             await DependencyService.Get<IDatabaseService>().Add(latestOpenApp);
         }
 
-        public void SetcountNpClick()
+        public void IncrementcountNpClick()
         {
             countNpClick ++;
         }

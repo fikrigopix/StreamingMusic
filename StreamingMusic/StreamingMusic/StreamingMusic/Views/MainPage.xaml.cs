@@ -21,7 +21,6 @@ namespace StreamingMusic
         readonly string currentVersion = VersionTracking.CurrentVersion;
 
         private bool DataSourceEmpty = true;
-        public int next_previous_count = 0;
         public int current_number_songs = 0;
         public string current_path;
 
@@ -40,13 +39,7 @@ namespace StreamingMusic
 
         private void ShowAdsInterstitial()
         {
-            int GetcountNpClick = DependencyService.Get<ILimitationInterstitialAds>().GetcountNpClick();
-            int limitInterstitialAds = DependencyService.Get<ILimitationInterstitialAds>().GetlimitInterstitialAds();
-            if (GetcountNpClick < limitInterstitialAds)
-            {
-                DependencyService.Get<IAdInterstitialService>().ShowAd();
-                DependencyService.Get<ILimitationInterstitialAds>().SetcountNpClick();
-            }
+            DependencyService.Get<IAdInterstitialService>().ShowAd();
         }
         private void ShowAdsAppOpen()
         {
@@ -55,14 +48,15 @@ namespace StreamingMusic
 
         private void ShowAdsInterstitialWhen3Clicked()
         {
-            if (next_previous_count == 2)
+            int GetcountNpClick = DependencyService.Get<ILimitationInterstitialAds>().GetcountNpClick();
+            int limitInterstitialAds = DependencyService.Get<ILimitationInterstitialAds>().GetlimitInterstitialAds();
+
+            if (GetcountNpClick <= limitInterstitialAds)
             {
-                ShowAdsInterstitial();
-                next_previous_count = 0;
-            }
-            else
-            {
-                next_previous_count++;
+                if (GetcountNpClick%3 == 0)
+                {
+                    ShowAdsInterstitial();
+                }
             }
         }
 
@@ -162,6 +156,7 @@ namespace StreamingMusic
         }
         private void Next()
         {
+            DependencyService.Get<ILimitationInterstitialAds>().IncrementcountNpClick();
             if (!DataSourceEmpty)
             {
                 MediaPlayerService.Reset();
@@ -186,6 +181,7 @@ namespace StreamingMusic
 
         public void Previous()
         {
+            DependencyService.Get<ILimitationInterstitialAds>().IncrementcountNpClick();
             if (!DataSourceEmpty)
             {
                 MediaPlayerService.Reset();

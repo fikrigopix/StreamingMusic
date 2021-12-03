@@ -7,7 +7,7 @@ namespace StreamingMusic.Interfaces
 {
     public interface ILimitationInterstitialAds
     {
-        void SetcountNpClick();
+        void IncrementcountNpClick();
         void SetlimitInterstitialAds(int SetlimitInterstitialAds);
         int GetcountNpClick();
         int GetlimitInterstitialAds();

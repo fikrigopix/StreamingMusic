@@ -27,13 +27,14 @@ namespace StreamingMusic
 
         protected async override void OnStart()
         {
+            base.OnStart();
             // Set LatestOpenAppAds Now
             LatestOpenAppAds = DateTime.Now;
 
             // Initialize MediaPlayerService
             DependencyService.Get<IMediaPlayerService>().InitMediaPlayer();
 
-            var CheckMyData = await DependencyService.Get<IDatabaseService>().GetData(1);
+            // var CheckMyData = await DependencyService.Get<IDatabaseService>().GetData(1);
 
             // If Database Null
             if (await DependencyService.Get<IDatabaseService>().GetData(1) == null)
