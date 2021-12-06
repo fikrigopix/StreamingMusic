@@ -61,9 +61,14 @@ namespace StreamingMusic.Droid.Services
 
         public void Start()
         {
-            player.Looping = true;
             player.Start();
+            player.Completion += OnPlayer_Completion;
             ShowNotification();
+        }
+
+        private void OnPlayer_Completion(object sender, EventArgs e)
+        {
+            var test = "";
         }
 
         public void Pause()
@@ -79,5 +84,6 @@ namespace StreamingMusic.Droid.Services
             InitMediaPlayer();
             DataSourceEmpty = true;
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using StreamingMusic.Interfaces;
+﻿using Plugin.LatestVersion;
+using StreamingMusic.Interfaces;
 using StreamingMusic.Models;
 using System;
 using System.IO;

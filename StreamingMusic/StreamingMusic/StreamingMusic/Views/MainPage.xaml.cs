@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using StreamingMusic.Interfaces;
 using Xamarin.Essentials;
+using Plugin.LatestVersion;
+using System.Threading;
+using Android.Media;
 
 namespace StreamingMusic
 {
@@ -13,6 +16,37 @@ namespace StreamingMusic
             InitializeComponent();
             label_title.Text = titleSongs[0];
             current_path = path[0];
+            //CheckLatestVersion();
+        }
+
+        public void CheckLatestVersion()
+        {
+            bool isLatest = false;
+            // Start a new task (this launches a new thread)
+            Task.Factory.StartNew(async () =>
+            {
+                // Do some work on a background thread, allowing the UI to remain responsive
+                isLatest = await CrossLatestVersion.Current.IsUsingLatestVersion();
+                // When the background work is done, continue with this code block
+            }).ContinueWith(async task =>
+            {
+                if (!isLatest)
+                {
+                    var update = await DisplayAlert("New Version", "There is a new version of this app available. Would you like to update now?", "Update", "Exit");
+                    if (update)
+                    {
+                        await CrossLatestVersion.Current.OpenAppInStore();
+                        Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+                    }
+                    else
+                    {
+                        Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+                    }
+                }
+                
+                // the following forces the code in the ContinueWith block to be run on the
+                // calling thread, often the Main/UI thread.
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public readonly IMediaPlayerService MediaPlayerService = DependencyService.Get<IMediaPlayerService>();

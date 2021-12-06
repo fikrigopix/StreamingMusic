@@ -35,9 +35,66 @@
                                     Property=Width,
                                     Constant=-20}"
             RelativeLayout.YConstraint="{ConstraintExpression
-                                     Type=RelativeToParent,
-                                     Property=Y,
-                                     Constant=10}"/>
+                                    Type=RelativeToParent,
+                                    Property=Y,
+                                    Constant=10}"/>
+
+        <!--<Slider
+            WidthRequest="300"
+            MinimumTrackColor="White"
+            MaximumTrackColor="LightGray"
+            ThumbColor="White"
+            Value="{Binding Position.TotalSeconds}"
+            Maximum="{Binding Maximum}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Constant=0}"
+            RelativeLayout.YConstraint="{ConstraintExpression
+                                    Type=RelativeToParent,
+                                    Property=Y,
+                                    Constant=475}"/>
+        
+        <Label
+            TextColor="White"
+            Text="{Binding Position, StringFormat='{0:mm\\:ss}'}"
+            FontSize="12"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                Type=RelativeToParent,
+                                Property=Width,
+                                Constant=0}"
+            RelativeLayout.XConstraint="{ConstraintExpression 
+                                Type=RelativeToParent,
+                                Property=X,
+                                Constant=20}"
+            RelativeLayout.YConstraint="{ConstraintExpression
+                                Type=RelativeToParent,
+                                Property=Y,
+                                Constant=475}"/>
+        
+        <Label
+            TextColor="White"
+            Text="{Binding Duration, StringFormat='{0:mm\\:ss}'}"
+            FontSize="12"
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                Type=RelativeToParent,
+                                Property=Width,
+                                Constant=0}"
+            RelativeLayout.XConstraint="{ConstraintExpression 
+                                Type=RelativeToParent,
+                                Property=X,
+                                Constant=-20}"
+            RelativeLayout.YConstraint="{ConstraintExpression
+                                Type=RelativeToParent,
+                                Property=Y,
+                                Constant=475}"/>-->
+
 
         <Image
             x:Name="loading"
