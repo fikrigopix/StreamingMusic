@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Media;
+using System;
 using System.Collections.Generic;
 
 namespace StreamingMusic.Interfaces
@@ -11,5 +12,6 @@ namespace StreamingMusic.Interfaces
         void Start();
         void Pause();
         void Reset();
+        MediaPlayer GetPlayer();
     }
 }

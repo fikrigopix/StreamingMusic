@@ -63,13 +63,15 @@ namespace StreamingMusic
         public string[] titleSongs = {
                         "1. Whitesand - Dance of Strings",
                         "2. Solo Accoustic Guitar - Jason Shaw",
-                        "3. Wonderful Acoustic Guitar"};
+                        "3. Wonderful Acoustic Guitar",
+                        "4. Saya Berbicara Satu Kali"};
 
         // Stream Songs Link
         public string[] path = {
                         "https://drive.google.com/uc?id=1uwtTPC_oSLyDbpEJyHpGlfbt_bOxmrOW&export=download",
                         "https://drive.google.com/uc?id=1zPZpaQLnePn7-KQYOrBESf9hegXsVVcF&export=download",
-                        "https://drive.google.com/uc?id=1vSfMj9iEqIqMIokJfsRkUhuBHbyKkUZ0&export=download"};
+                        "https://drive.google.com/uc?id=1vSfMj9iEqIqMIokJfsRkUhuBHbyKkUZ0&export=download",
+                        "https://drive.google.com/uc?id=1AsLQUJhaobz7aal50DctiHt84b96t3NV&export=download"};
 
         private void ShowAdsInterstitial()
         {
@@ -167,6 +169,8 @@ namespace StreamingMusic
                     if (!MediaPlayerService.IsPlaying())
                     {
                         MediaPlayerService.Start();
+                        MediaPlayer player = DependencyService.Get<IMediaPlayerService>().GetPlayer();
+                        player.Completion += OnPlayer_Completion;
                     }
                 }
                 else
@@ -178,6 +182,11 @@ namespace StreamingMusic
                 // the following forces the code in the ContinueWith block to be run on the
                 // calling thread, often the Main/UI thread.
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void OnPlayer_Completion(object sender, EventArgs e)
+        {
+            Next();
         }
 
         private void Pause()
@@ -199,7 +208,7 @@ namespace StreamingMusic
 
             ShowAdsInterstitialWhen3Clicked();
 
-            if (current_number_songs == 2)
+            if (current_number_songs == 3)
             {
                 current_number_songs = 0;
             }
@@ -226,7 +235,7 @@ namespace StreamingMusic
 
             if (current_number_songs == 0)
             {
-                current_number_songs = 2;
+                current_number_songs = 3;
             }
             else
             {
